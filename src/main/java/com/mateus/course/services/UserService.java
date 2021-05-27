@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.course.entities.User;
 import com.mateus.course.repositories.UserRepository;
+import com.mateus.course.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -23,7 +24,7 @@ public class UserService {
 
 		Optional<User> obj = repository.findById(id);
 
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public User insert(User user) {
